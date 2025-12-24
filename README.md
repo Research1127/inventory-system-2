@@ -2,7 +2,7 @@ Install the project
 
 -   laravel new inventory-system-2
 -   cd inventory-system-2
--   php artisan serve (this is to check whether our app are working or not)
+-   php artisan serve
 
 Create product model and its controller and migrate it
 
@@ -52,3 +52,20 @@ Create routes/api.php file
 -   Run php artisan serve
 
 Open Bruno and test all our method earlier
+
+Repository setup
+
+-   Create a repository in github repository and named it inventory-system-2
+-   Set the repository to public
+-   Give a meaningful Description
+-   Open terminal in our project
+-   Cd to our project folder
+-   Run the command below:
+    1. git init
+    2. git branch -M main
+    3. git add .
+    4. git commit -m "restful api project created"
+    5. git remote add origin git@github.com:Research1127/inventory-system-2.git
+    6. git push -u origin main
+    7. git status
+    8. git log

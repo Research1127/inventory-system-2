@@ -56,4 +56,6 @@ Repository setup
     4. git commit -m "restful api project created"
     5. git remote add origin git@github.com:Research1127/inventory-system-2.git
     6. git push -u origin main
+    7. git status
+    8. git log
 
