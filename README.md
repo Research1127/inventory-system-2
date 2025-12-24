@@ -69,3 +69,5 @@ Repository setup
     6. git push -u origin main
     7. git status
     8. git log
+    9. git tag -a checkpoint-1.0 -m "tag as version 1"
+    10. git push
