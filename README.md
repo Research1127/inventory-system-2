@@ -1,3 +1,5 @@
+PART 1 ----------------------------------------------------------------------------------------
+
 Install the project
 
 -   laravel new inventory-system-2
@@ -71,3 +73,90 @@ Repository setup
     8. git log
     9. git tag -a checkpoint-1.0 -m "tag as version 1"
     10. git push origon checkpoint-1.0
+
+PART 2 ----------------------------------------------------------------------------------------
+Install Laravel Sanctum
+
+1. Run this command in terminal:
+
+    - php artisan install:api
+    - then it will asked about migration and click yes
+
+2. Overriding the default model
+    - Open the default model which is User.php and add the command below:
+        - use Laravel\Sanctum\HasApiTokens;
+        - add HasApiTokens trait
+
+Authentication Setup
+
+1. Create a new AuthController.php and run this command:
+
+    - php artisan make:controller Api/Auth/AuthController
+    - Add the login, register, logout and me function
+
+2. Edit routes/api.php
+
+    - Add the routes for login, register, logout and me
+
+3. Using TINKER to add user data into our user table
+
+4. Test the login and register by using json
+
+5. Test GET ME and LOGOUT function by key in the KEY and VALUE of the tokens in the HEADERS
+
+6. Make sure before test ME and LOGOUT must LOGIN first
+
+Authorization Setup
+
+1. Install spatie package and run the command below in terminal:
+
+    - composer require spatie/laravel-permission
+
+2. Publish config and migrations
+
+    - php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+3. Run the migrations
+
+    - php artisan migrate
+
+4. Open the User.php file and update it
+
+    - add HasRole trait
+    - add protected $guard_name = 'api';
+
+5. Imagine that we have these permission that we will use for our product
+
+    - products-view
+    - products-create
+    - products-update
+    - products-delete
+
+6. Now we need to implement those permission in the seeder file, run command below:
+
+    - php artisan make:seeder RolePermissionSeeder
+
+7. Then open database/seeders/RolePermissionSeeder.php to create role and permission
+
+    - Make sure have the guard because permissions use 'api' guard
+
+8. Setup the DatabaseSeeder.php and add the RolePermissionSeeder in it
+
+9. After that run the command below:
+
+    - php artisan db:seed --class=RolePermissionSeeder
+
+10. Assign role to the user using TINKER and run this command:
+    - php artisan tinker
+    - use Spatie\Permission\Models\Role;
+    - $user = App\Models\User::where('name', 'PowerAdmin')->first(); **_ Note that i give the permission to PowerAdmin _**
+    - $user->assignRole('admin');
+
+PROTECT PRODUCT ROUTES - Give specific access to the routes
+
+1. Just adjust the api.php and give the specific access to the routes
+2. Need to add at the end of the route:
+    - ->middleware('auth:sanctum')->can('products-view');
+    - ->middleware('auth:sanctum')->can('products-update');
+    - ->middleware('auth:sanctum')->can('products-delete');
+    - ->middleware('auth:sanctum')->can('products-create');
