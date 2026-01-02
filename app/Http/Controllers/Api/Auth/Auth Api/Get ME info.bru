@@ -1,0 +1,20 @@
+meta {
+  name: Get ME info
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://127.0.0.1:8000/api/auth/me
+  body: none
+  auth: inherit
+}
+
+headers {
+  Authorization: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
